@@ -17,24 +17,24 @@ class DetailVC: UIViewController {
     var detail: DetailModel? {
         willSet {
             OperationQueue.main.addOperation {
-                self.title = newValue?.Title ?? ""
+                self.navigationItem.title = newValue?.Title ?? ""
                 self.descriptionLabel?.text = """
-                Title: \(newValue?.Title ?? "")
-                Year: \(newValue?.Year ?? "")
-                Rated: \(newValue?.Rated ?? "")
-                Released: \(newValue?.Released ?? "")
-                Runtime: \(newValue?.Runtime ?? "")
-                Genre: \(newValue?.Genre ?? "")
-                Director: \(newValue?.Director ?? "")
-                Writer: \(newValue?.Writer ?? "")
-                Actors: \(newValue?.Actors ?? "")
-                Plot: \(newValue?.Plot ?? "")
-                Language: \(newValue?.Language ?? "")
-                Country: \(newValue?.Country ?? "")
-                Awards: \(newValue?.Awards ?? "")
-                Rating: \(newValue?.imdbRating ?? "")
-                Votes: \(newValue?.imdbVotes ?? "")
-                Type: \(newValue?.Type ?? "")
+                \("str_title"): \(newValue?.Title ?? "")
+                \("str_year"): \(newValue?.Year ?? "")
+                \("str_rated"): \(newValue?.Rated ?? "")
+                \("str_released"): \(newValue?.Released ?? "")
+                \("str_runtime"): \(newValue?.Runtime ?? "")
+                \("str_genre"): \(newValue?.Genre ?? "")
+                \("str_director"): \(newValue?.Director ?? "")
+                \("str_writer"): \(newValue?.Writer ?? "")
+                \("str_actors"): \(newValue?.Actors ?? "")
+                \("str_plot"): \(newValue?.Plot ?? "")
+                \("str_language"): \(newValue?.Language ?? "")
+                \("str_country"): \(newValue?.Country ?? "")
+                \("str_awards"): \(newValue?.Awards ?? "")
+                \("str_rating"): \(newValue?.imdbRating ?? "")
+                \("str_votes"): \(newValue?.imdbVotes ?? "")
+                \("str_type"): \(newValue?.Type ?? "")
                 """
             }
         }

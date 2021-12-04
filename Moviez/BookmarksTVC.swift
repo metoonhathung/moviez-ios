@@ -16,7 +16,7 @@ class BookmarksTVC: UITableViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "str_bookmarks"
+        navigationItem.title = "str_bookmarks"
         NotificationCenter.default.addObserver(self, selector: #selector(saveItem), name: Notifications.movieAdded, object: nil)
         readData()
     }

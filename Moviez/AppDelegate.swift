@@ -15,6 +15,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        let dict: [String : Any] = [
+            dWasLaunchedBefore: false,
+            dDarkMode: false,
+            dLanguage: "en",
+            dVertical: true,
+            dColumns: 3,
+            dPadding: 16,
+            dOffset: false
+        ]
+        UserDefaults.standard.register(defaults: dict)
+        
         preloadMovies()
         
         return true
@@ -94,7 +105,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Preloading
     
     private func preloadMovies() {
-        let dWasLaunchedBefore = "was_launched_before"
         let defaults = UserDefaults.standard
         if defaults.bool(forKey: dWasLaunchedBefore) == false {
             

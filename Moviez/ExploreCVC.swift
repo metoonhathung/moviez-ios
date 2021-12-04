@@ -12,16 +12,16 @@ private let reuseIdentifier = "PosterCVCell"
 class ExploreCVC: UICollectionViewController, SearchDelegate {
     
     var cvVertical = true
-    var cvMargin: CGFloat = 8.0
+    var cvPadding: CGFloat = 8
     var cvColumns: CGFloat = 3
-    var cvOffset: CGFloat = 0.0
+    var cvOffset: CGFloat = 0
     
     var items = [Item]()
     let imageHelper = ImageHelper()
     let searchHelper = SearchHelper()
     let detailHelper = DetailHelper()
     
-    var searchTitle = "Marvel"
+    var searchTitle = "iron man"
     var type = ""
     var year = ""
     var page = 1
@@ -30,14 +30,32 @@ class ExploreCVC: UICollectionViewController, SearchDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "str_explore"
-        self.collectionView.collectionViewLayout = UICollectionViewFlowLayout()
+        navigationItem.title = "str_explore"
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onDirection), name: Notifications.directionChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onColumns), name: Notifications.columnsChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onPadding), name: Notifications.paddingChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onBottom), name: Notifications.bottomChanged, object: nil)
+        
+        let defaults = UserDefaults.standard
+        cvVertical = defaults.bool(forKey: dVertical)
+        cvPadding = CGFloat(defaults.float(forKey: dPadding))
+        cvColumns = CGFloat(defaults.float(forKey: dColumns))
+        let offset = defaults.bool(forKey: dOffset)
+        cvOffset = offset ? view.frame.size.height * 0.5 : 0
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: cvOffset, right: 0)
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = cvVertical ? .vertical : .horizontal
+        self.collectionView.collectionViewLayout = layout
+        updateImages()
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
 //        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        updateImages()
+        
         // Do any additional setup after loading the view.
     }
     
@@ -192,25 +210,59 @@ class ExploreCVC: UICollectionViewController, SearchDelegate {
         }
     }
     
+    // MARK: - Actions
+    
+    @objc func onDirection(_ notification: NSNotification) {
+        if let dict = notification.userInfo as NSDictionary?, let vertical = dict["vertical"] as? Bool {
+            cvVertical = vertical
+            if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+                layout.scrollDirection = (cvVertical == true) ? .vertical : .horizontal
+            }
+            collectionView?.reloadData()
+        }
+    }
+    
+    @objc func onColumns(_ notification: NSNotification) {
+        if let dict = notification.userInfo as NSDictionary?, let columns = dict["columns"] as? Int {
+            cvColumns = CGFloat(columns)
+            collectionView?.reloadData()
+        }
+    }
+    
+    @objc func onPadding(_ notification: NSNotification) {
+        if let dict = notification.userInfo as NSDictionary?, let padding = dict["padding"] as? Int {
+            cvPadding = CGFloat(padding)
+            collectionView?.reloadData()
+        }
+    }
+    
+    @objc func onBottom(_ notification: NSNotification) {
+        if let dict = notification.userInfo as NSDictionary?, let offset = dict["offset"] as? Bool {
+            cvOffset = offset ? view.frame.size.height * 0.5 : 0.0
+            collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: cvOffset, right: 0)
+            collectionView?.reloadData()
+        }
+    }
+    
 }
 
 extension ExploreCVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var width = collectionView.bounds.width
-        width -= (cvColumns + 1) * cvMargin
+        width -= (cvColumns + 1) * cvPadding
         return CGSize(width: width/cvColumns, height: width/cvColumns * 1.5)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: cvMargin, left: cvMargin, bottom: cvMargin, right: cvMargin)
+        return UIEdgeInsets(top: cvPadding, left: cvPadding, bottom: cvPadding, right: cvPadding)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return cvMargin
+        return cvPadding
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return cvMargin
+        return cvPadding
     }
 }

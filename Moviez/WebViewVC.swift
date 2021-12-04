@@ -15,7 +15,7 @@ class WebViewVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "str_webview"
+        navigationItem.title = "str_webview"
         urlField?.text = "https://www.imdb.com/"
         loadRequest()
     }

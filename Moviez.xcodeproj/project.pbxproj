@@ -27,6 +27,8 @@
 		B9427505275B67DA00D2153F /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9427504275B67DA00D2153F /* ImageHelper.swift */; };
 		B97D5AB1275B421A001ADDB6 /* PosterCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97D5AB0275B421A001ADDB6 /* PosterCVCell.swift */; };
 		B97D5AB3275B4362001ADDB6 /* ExploreCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97D5AB2275B4362001ADDB6 /* ExploreCVC.swift */; };
+		B97FBE1E275C214000F4B0D5 /* LanguageEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97FBE1D275C214000F4B0D5 /* LanguageEnum.swift */; };
+		B97FBE20275C21B600F4B0D5 /* DirectionEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97FBE1F275C21B600F4B0D5 /* DirectionEnum.swift */; };
 		B98CE784275B05C300CD284C /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98CE783275B05C300CD284C /* SwiftyJSON.swift */; };
 		B98CE786275B064200CD284C /* Movies.json in Resources */ = {isa = PBXBuildFile; fileRef = B98CE785275B064100CD284C /* Movies.json */; };
 		B9D00487275BC3260011FF0A /* TypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D00486275BC3260011FF0A /* TypeEnum.swift */; };
@@ -55,6 +57,8 @@
 		B9427504275B67DA00D2153F /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
 		B97D5AB0275B421A001ADDB6 /* PosterCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterCVCell.swift; sourceTree = "<group>"; };
 		B97D5AB2275B4362001ADDB6 /* ExploreCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCVC.swift; sourceTree = "<group>"; };
+		B97FBE1D275C214000F4B0D5 /* LanguageEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageEnum.swift; sourceTree = "<group>"; };
+		B97FBE1F275C21B600F4B0D5 /* DirectionEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionEnum.swift; sourceTree = "<group>"; };
 		B98CE783275B05C300CD284C /* SwiftyJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		B98CE785275B064100CD284C /* Movies.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Movies.json; sourceTree = "<group>"; };
 		B9D00486275BC3260011FF0A /* TypeEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeEnum.swift; sourceTree = "<group>"; };
@@ -102,10 +106,10 @@
 				B927C4C0275AE60A0004C5E6 /* SceneDelegate.swift */,
 				B927C4E0275AF9380004C5E6 /* Constants.swift */,
 				B9427504275B67DA00D2153F /* ImageHelper.swift */,
-				B9D00486275BC3260011FF0A /* TypeEnum.swift */,
 				B98CE783275B05C300CD284C /* SwiftyJSON.swift */,
 				B98CE785275B064100CD284C /* Movies.json */,
 				B927C4D5275AEF400004C5E6 /* OMDb API */,
+				B97FBE1C275C212000F4B0D5 /* Enums */,
 				B927C4C4275AE60A0004C5E6 /* Main.storyboard */,
 				B927C4CA275AE60D0004C5E6 /* Assets.xcassets */,
 				B927C4CC275AE60D0004C5E6 /* LaunchScreen.storyboard */,
@@ -124,6 +128,16 @@
 				B927C4E4275AFC070004C5E6 /* DetailHelper.swift */,
 			);
 			path = "OMDb API";
+			sourceTree = "<group>";
+		};
+		B97FBE1C275C212000F4B0D5 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				B9D00486275BC3260011FF0A /* TypeEnum.swift */,
+				B97FBE1D275C214000F4B0D5 /* LanguageEnum.swift */,
+				B97FBE1F275C21B600F4B0D5 /* DirectionEnum.swift */,
+			);
+			path = Enums;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -209,8 +223,10 @@
 				B927C4BF275AE60A0004C5E6 /* AppDelegate.swift in Sources */,
 				B927C4E3275AF9D70004C5E6 /* SearchHelper.swift in Sources */,
 				B97D5AB1275B421A001ADDB6 /* PosterCVCell.swift in Sources */,
+				B97FBE20275C21B600F4B0D5 /* DirectionEnum.swift in Sources */,
 				B9427505275B67DA00D2153F /* ImageHelper.swift in Sources */,
 				B927C4D7275AEF850004C5E6 /* SearchModel.swift in Sources */,
+				B97FBE1E275C214000F4B0D5 /* LanguageEnum.swift in Sources */,
 				B98CE784275B05C300CD284C /* SwiftyJSON.swift in Sources */,
 				B927C4DD275AF49B0004C5E6 /* MovieTVCell.swift in Sources */,
 				B927C4C1275AE60A0004C5E6 /* SceneDelegate.swift in Sources */,

@@ -14,7 +14,7 @@ protocol SearchDelegate: AnyObject {
 class SearchVC: UIViewController {
 
     @IBOutlet weak var titleField: UITextField!
-    @IBOutlet weak var typePickerView: UIPickerView!
+    @IBOutlet weak var typePicker: UIPickerView!
     @IBOutlet weak var yearField: UITextField!
     
     weak var delegate: SearchDelegate?
@@ -46,7 +46,7 @@ class SearchVC: UIViewController {
     
     @IBAction func onGoBtn(_ sender: Any) {
         if let searchTitle = titleField?.text, let year = yearField?.text {
-            let type = TypeEnum(rawValue: typePickerView.selectedRow(inComponent: 0))?.title() ?? ""
+            let type = TypeEnum(rawValue: typePicker.selectedRow(inComponent: 0))?.title() ?? ""
             delegate?.updateSearch(title: searchTitle, type: type, year: year)
         }
         presentingViewController?.dismiss(animated: true)
