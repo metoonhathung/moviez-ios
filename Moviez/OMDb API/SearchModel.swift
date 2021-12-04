@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Item: Decodable {
+struct Item: Equatable, Decodable {
     var Title: String
     var Year: String
     var imdbID: String

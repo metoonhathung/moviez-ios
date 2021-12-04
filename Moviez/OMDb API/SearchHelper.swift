@@ -27,7 +27,7 @@ class SearchHelper {
         }
     }
     
-    private func omdbUrl(parameters: [String : String]) -> URL? {
+    func omdbUrl(parameters: [String : String]) -> URL? {
         
         var queryItems = [URLQueryItem]()
         for (key, value) in parameters {
@@ -43,13 +43,14 @@ class SearchHelper {
         return components.url
     }
 
-    func fetchMovies(for text: String, type: String, year: String, completion: @escaping (SearchHelperResult) -> Void) {
+    func fetchMovies(for text: String, type: String, year: String, page: Int, completion: @escaping (SearchHelperResult) -> Void) {
         
         let params = [
             "apikey": Constants.apikey,
             "s": text,
             "type": type,
-            "y": year
+            "y": year,
+            "page": String(page)
         ]
         if let url = omdbUrl(parameters: params) {
             

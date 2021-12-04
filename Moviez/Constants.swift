@@ -9,4 +9,5 @@ import Foundation
 
 public struct Constants {
     public static let apikey = "14795466"
+    public static let itemsPerPage = 10
 }

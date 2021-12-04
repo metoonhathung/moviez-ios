@@ -14,6 +14,7 @@ class MovieTVCell: UITableViewCell {
     @IBOutlet weak var yearLabel: UILabel!
     @IBOutlet var starsArray: [UIImageView]!
     
+    let imageHelper = ImageHelper()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,7 +36,6 @@ class MovieTVCell: UITableViewCell {
             let poster = movie.value(forKey: "poster") as? String,
             let rating = movie.value(forKey: "rating") as? String {
             
-            posterImg?.load(for: poster)
             titleLabel?.text = title
             yearLabel?.text = year
             let imdbRating = Double(rating)
@@ -43,6 +43,17 @@ class MovieTVCell: UITableViewCell {
                 starImg.isHidden = i >= Int(imdbRating?.rounded() ?? 10)
                 
             }
+            
+            imageHelper.fetchImage(urlString: poster, completion: { result in
+                
+                guard case let .Success(imgData) = result else { return }
+                
+                OperationQueue.main.addOperation {
+                    if let image = UIImage(data: imgData) {
+                        self.posterImg.image = image
+                    }
+                }
+            })
         }
     }
 
