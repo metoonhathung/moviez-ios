@@ -11,7 +11,7 @@ class ExploreVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String
+        self.title = "str_explore"
         // Do any additional setup after loading the view.
     }
     

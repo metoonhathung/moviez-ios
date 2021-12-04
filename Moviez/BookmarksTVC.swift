@@ -14,7 +14,6 @@ class BookmarksTVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.title = "str_bookmarks"
         readData()
     }

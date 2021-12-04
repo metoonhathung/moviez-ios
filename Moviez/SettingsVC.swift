@@ -8,10 +8,12 @@
 import UIKit
 
 class SettingsVC: UIViewController {
+    
+    let appName = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.title = "str_settings"
         // Do any additional setup after loading the view.
     }
     

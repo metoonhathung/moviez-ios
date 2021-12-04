@@ -191,11 +191,11 @@
             </objects>
             <point key="canvasLocation" x="819" y="376"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Bookmarks-->
         <scene sceneID="6nh-1F-u9O">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="95k-hR-uEE" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="bookmarks" id="LTZ-bD-ntI"/>
+                    <tabBarItem key="tabBarItem" title="Bookmarks" image="book.fill" catalog="system" id="LTZ-bD-ntI"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="3aS-eU-TQe">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
@@ -217,10 +217,52 @@
                     <view key="view" contentMode="scaleToFill" id="LeO-Bd-U2g">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="weF-y3-zau">
+                                <rect key="frame" x="12" y="152" width="390" height="34"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="I5f-7W-eCv">
+                                        <rect key="frame" x="0.0" y="0.0" width="337" height="34"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Taw-TW-BWA">
+                                        <rect key="frame" x="349" y="0.0" width="41" height="34"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <state key="normal" title="str_go"/>
+                                        <connections>
+                                            <action selector="onGoBtn:" destination="TPf-vy-0f8" eventType="touchUpInside" id="jS9-fW-ZvF"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DUz-7K-pYM">
+                                <rect key="frame" x="12" y="198" width="390" height="603"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="msW-4j-z7o"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="DUz-7K-pYM" firstAttribute="top" secondItem="weF-y3-zau" secondAttribute="bottom" constant="12" id="DEB-Do-Bvi"/>
+                            <constraint firstItem="DUz-7K-pYM" firstAttribute="leading" secondItem="msW-4j-z7o" secondAttribute="leading" constant="12" id="EOg-OL-6cM"/>
+                            <constraint firstItem="msW-4j-z7o" firstAttribute="trailing" secondItem="DUz-7K-pYM" secondAttribute="trailing" constant="12" id="TW2-Ec-oUj"/>
+                            <constraint firstItem="DUz-7K-pYM" firstAttribute="top" secondItem="weF-y3-zau" secondAttribute="bottom" constant="12" id="UgN-kW-VZd"/>
+                            <constraint firstItem="weF-y3-zau" firstAttribute="leading" secondItem="msW-4j-z7o" secondAttribute="leading" constant="12" id="XXW-7n-JMK"/>
+                            <constraint firstItem="weF-y3-zau" firstAttribute="top" secondItem="msW-4j-z7o" secondAttribute="top" constant="12" id="uFK-la-feO"/>
+                            <constraint firstItem="msW-4j-z7o" firstAttribute="bottom" secondItem="DUz-7K-pYM" secondAttribute="bottom" constant="12" id="wGD-Sb-WFg"/>
+                            <constraint firstItem="msW-4j-z7o" firstAttribute="trailing" secondItem="weF-y3-zau" secondAttribute="trailing" constant="12" id="ycQ-Fs-qU3"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="x2S-SR-zll"/>
+                    <connections>
+                        <outlet property="urlField" destination="I5f-7W-eCv" id="63u-eo-sxG"/>
+                        <outlet property="webView" destination="DUz-7K-pYM" id="hWg-3F-8o2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WPQ-qY-PrF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -263,11 +305,11 @@
             </objects>
             <point key="canvasLocation" x="2187" y="-439"/>
         </scene>
-        <!--Web-->
+        <!--Web View-->
         <scene sceneID="NsA-Je-eaW">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="TL8-9J-IMj" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Web" image="wifi" catalog="system" id="Dg6-qs-V9d"/>
+                    <tabBarItem key="tabBarItem" title="Web View" image="globe" catalog="system" id="Dg6-qs-V9d"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="ZNf-dt-pLL">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
@@ -303,10 +345,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="book.fill" catalog="system" width="128" height="102"/>
         <image name="gear" catalog="system" width="128" height="119"/>
+        <image name="globe" catalog="system" width="128" height="121"/>
         <image name="square.grid.2x2.fill" catalog="system" width="128" height="114"/>
         <image name="star" width="256" height="256"/>
-        <image name="wifi" catalog="system" width="128" height="91"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
