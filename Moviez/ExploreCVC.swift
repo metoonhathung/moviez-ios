@@ -19,6 +19,7 @@ class ExploreCVC: UICollectionViewController, SearchDelegate {
     var items = [Item]()
     let imageHelper = ImageHelper()
     let searchHelper = SearchHelper()
+    let detailHelper = DetailHelper()
     
     var searchTitle = "Marvel"
     var type = ""
@@ -88,7 +89,7 @@ class ExploreCVC: UICollectionViewController, SearchDelegate {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? PosterCVCell else {
             return UICollectionViewCell()
         }
-        cell.backgroundColor = .systemOrange
+        cell.backgroundColor = .systemGray6
         return cell
     }
     
@@ -149,9 +150,45 @@ class ExploreCVC: UICollectionViewController, SearchDelegate {
     }
     
     @IBAction func onNextBtn(_ sender: Any) {
-        if page * Constants.itemsPerPage < totalResults {
+        if page * itemsPerPage < totalResults {
             page += 1
             updateImages()
+        }
+    }
+    
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+            case "CollectionDetailSegue":
+                if let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first,
+                   let detailVC = segue.destination as? DetailVC {
+                    let item = items[selectedIndexPath.row]
+                    imageHelper.fetchImage(urlString: item.Poster) { result in
+                        switch result {
+                        case let .Success(imgData):
+                            if let image = UIImage(data: imgData) {
+                                detailVC.image = image
+                            }
+                        case let .Failure(error):
+                            print("Error fetching image: \(error)")
+                        }
+                    }
+                    detailHelper.fetchDetail(for: item.imdbID) { result in
+                        switch result {
+                            case let .Success(detail):
+                                detailVC.detail = detail
+                            case let .Failure(error):
+                                print("fetch error; \(error)")
+                        }
+                    }
+                }
+            case "SearchSegue":
+                if let searchVC = segue.destination as? SearchVC {
+                    searchVC.delegate = self
+            }
+            default: break
         }
     }
     
@@ -175,18 +212,5 @@ extension ExploreCVC: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return cvMargin
-    }
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-            case "SearchSegue":
-                if let searchVC = segue.destination as? SearchVC {
-                    searchVC.delegate = self
-            }
-            default: break
-        }
     }
 }

@@ -13,6 +13,7 @@ class MovieTVCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var yearLabel: UILabel!
     @IBOutlet var starsArray: [UIImageView]!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     let imageHelper = ImageHelper()
     
@@ -29,10 +30,10 @@ class MovieTVCell: UITableViewCell {
     
     func update(with movie: Movie) {
          
-        if let id = movie.value(forKey: "id") as? String,
+        if let _ = movie.value(forKey: "id") as? String,
             let title = movie.value(forKey: "title") as? String,
             let year = movie.value(forKey: "year") as? String,
-            let type = movie.value(forKey: "type") as? String,
+            let _ = movie.value(forKey: "type") as? String,
             let poster = movie.value(forKey: "poster") as? String,
             let rating = movie.value(forKey: "rating") as? String {
             
@@ -50,6 +51,7 @@ class MovieTVCell: UITableViewCell {
                 
                 OperationQueue.main.addOperation {
                     if let image = UIImage(data: imgData) {
+                        self.activityIndicator?.stopAnimating()
                         self.posterImg.image = image
                     }
                 }

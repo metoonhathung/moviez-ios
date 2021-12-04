@@ -7,7 +7,9 @@
 
 import Foundation
 
-public struct Constants {
-    public static let apikey = "14795466"
-    public static let itemsPerPage = 10
+let apikey = "14795466"
+let itemsPerPage = 10
+
+public struct Notifications {
+    public static let movieAdded = Notification.Name(rawValue: "MovieAdded")
 }

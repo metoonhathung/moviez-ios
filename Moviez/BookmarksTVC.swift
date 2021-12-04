@@ -11,10 +11,13 @@ import CoreData
 class BookmarksTVC: UITableViewController {
 
     var movies: [NSManagedObject] = []
-    
+    let imageHelper = ImageHelper()
+    let detailHelper = DetailHelper()
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "str_bookmarks"
+        NotificationCenter.default.addObserver(self, selector: #selector(saveItem), name: Notifications.movieAdded, object: nil)
         readData()
     }
     
@@ -24,7 +27,7 @@ class BookmarksTVC: UITableViewController {
     
     func deletionAlert(title: String, completion: @escaping (UIAlertAction) -> Void) {
         let alertMsg = "\(NSLocalizedString("str_delete_msg", comment: "")) \(title)?"
-        let alert = UIAlertController(title: NSLocalizedString("str_warning", comment: ""), message: alertMsg, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: NSLocalizedString("str_warning", comment: ""), message: alertMsg, preferredStyle: .alert)
         
         let deleteAction = UIAlertAction(title: NSLocalizedString("str_delete", comment: ""), style: .destructive, handler: completion)
         let cancelAction = UIAlertAction(title: NSLocalizedString("str_cancel", comment: ""), style: .cancel)
@@ -80,10 +83,13 @@ class BookmarksTVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            if let item = movies[indexPath.row] as? Movie, let title = item.title {
-                deletionAlert(title: title, completion: { _ in
-                    self.deleteItem(item: item)
-                })
+            if let type = TypeEnum(rawValue: indexPath.section) {
+                let moviesFiltered = moviesByType(type: type)
+                if let item = moviesFiltered[indexPath.row] as? Movie, let title = item.title {
+                    deletionAlert(title: title, completion: { _ in
+                        self.deleteItem(item: item)
+                    })
+                }
             }
         }
     }
@@ -100,16 +106,6 @@ class BookmarksTVC: UITableViewController {
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the item to be re-orderable.
         return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
     */
     
@@ -139,10 +135,68 @@ class BookmarksTVC: UITableViewController {
         readData()
     }
     
+    @objc func saveItem(_ notification: NSNotification) {
+        if let dict = notification.userInfo as NSDictionary?, let detail = dict["movie"] as? DetailModel {
+            if movies.filter({($0 as? Movie)?.value(forKey: "id") as? String == detail.imdbID}).count == 0 {
+                let context = AppDelegate.cdContext
+                if let entity = NSEntityDescription.entity(forEntityName: "Movie", in: context) {
+                    let item = NSManagedObject(entity: entity, insertInto: context)
+                    item.setValue(detail.imdbID ?? "", forKeyPath: "id")
+                    item.setValue(detail.Title ?? "", forKeyPath: "title")
+                    item.setValue(detail.Type ?? "", forKeyPath: "type")
+                    item.setValue(detail.Year ?? "", forKeyPath: "year")
+                    item.setValue(detail.Poster ?? "", forKeyPath: "poster")
+                    item.setValue(detail.imdbRating ?? "", forKeyPath: "rating")
+                    do {
+                        try context.save()
+                    } catch let error as NSError {
+                        print("Could not save the item. \(error), \(error.userInfo)")
+                    }
+                }
+                readData()
+            }
+        }
+    }
+    
     // MARK: - Actions
     
     @IBAction func onEditBtn(_ sender: Any) {
         setEditing(!isEditing, animated: true)
+    }
+    
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+            case "TableDetailSegue":
+                if let selectedIndexPath = tableView.indexPathForSelectedRow,
+                   let detailVC = segue.destination as? DetailVC,
+                   let type = TypeEnum(rawValue: selectedIndexPath.section) {
+                    let moviesFiltered = moviesByType(type: type)
+                    if let movie = moviesFiltered[selectedIndexPath.row] as? Movie {
+                        imageHelper.fetchImage(urlString: movie.value(forKey: "poster") as! String) { result in
+                            switch result {
+                            case let .Success(imgData):
+                                if let image = UIImage(data: imgData) {
+                                    detailVC.image = image
+                                }
+                            case let .Failure(error):
+                                print("Error fetching image: \(error)")
+                            }
+                        }
+                        detailHelper.fetchDetail(for: movie.value(forKey: "id") as! String) { result in
+                            switch result {
+                                case let .Success(detail):
+                                    detailVC.detail = detail
+                                case let .Failure(error):
+                                    print("fetch error; \(error)")
+                            }
+                        }
+                    }
+                }
+            default: break
+        }
     }
     
 }

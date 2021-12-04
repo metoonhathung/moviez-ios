@@ -19,7 +19,7 @@ class ImageHelper {
         if let url = URL(string: urlString) {
             
             let request = URLRequest(url: url)
-            URLSession.shared.dataTask(with: request, completionHandler:  { data, _, error in
+            let task = URLSession.shared.dataTask(with: request) { data, _, error in
                 guard let imgData = data else {
                     if let err = error {
                         completion(.Failure(err))
@@ -27,7 +27,8 @@ class ImageHelper {
                     return
                 }
                 completion(.Success(imgData))
-            }).resume()
+            }
+            task.resume()
         }
     }
 }

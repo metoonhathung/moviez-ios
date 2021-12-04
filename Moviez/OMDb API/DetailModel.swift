@@ -33,6 +33,7 @@ struct DetailModel: Decodable {
     var imdbVotes: String?
     var imdbID: String?
     var `Type`: String?
+    var totalSeasons: String?
     var DVD: String?
     var BoxOffice: String?
     var Production: String?

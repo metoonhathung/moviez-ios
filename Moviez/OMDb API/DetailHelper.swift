@@ -46,7 +46,7 @@ class DetailHelper {
     func fetchDetail(for id: String, completion: @escaping (DetailHelperResult) -> Void) {
         
         let params = [
-            "apikey": Constants.apikey,
+            "apikey": apikey,
             "i": id
         ]
         if let url = omdbUrl(parameters: params) {

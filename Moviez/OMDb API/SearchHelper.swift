@@ -46,7 +46,7 @@ class SearchHelper {
     func fetchMovies(for title: String, type: String, year: String, page: Int, completion: @escaping (SearchHelperResult) -> Void) {
         
         let params = [
-            "apikey": Constants.apikey,
+            "apikey": apikey,
             "s": title,
             "type": type,
             "y": year,
