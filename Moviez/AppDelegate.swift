@@ -14,7 +14,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        preloadMovies()
+        
         return true
     }
 
@@ -73,6 +75,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
+    }
+    
+    // MARK: - Conveniences
+    
+    static var persistentContainer: NSPersistentContainer {
+        return (UIApplication.shared.delegate as! AppDelegate).persistentContainer
+    }
+    
+    static var cdContext: NSManagedObjectContext {
+        let cdContext = persistentContainer.viewContext
+        cdContext.automaticallyMergesChangesFromParent = true
+        return cdContext
+    }
+    
+    // MARK: - Preloading
+    
+    private func preloadMovies() {
+        let dWasLaunchedBefore = "was_launched_before"
+        let defaults = UserDefaults.standard
+        if defaults.bool(forKey: dWasLaunchedBefore) == false {
+            
+            guard let moviesURL = Bundle.main.url(forResource: "Movies", withExtension: "json") else { return }
+            guard let contents = try? Data(contentsOf: moviesURL) else { return }
+            let library = JSON(contents).arrayValue
+            
+            persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
+            let backgroundContext = persistentContainer.newBackgroundContext()
+            backgroundContext.perform {
+                
+                do {
+                    for movie in library {
+                        let item = Movie(context: backgroundContext)
+                        item.id = movie["id"].stringValue
+                        item.title = movie["title"].stringValue
+                        item.year = movie["year"].stringValue
+                        item.type = movie["type"].stringValue
+                        item.poster = movie["poster"].stringValue
+                        item.rating = movie["rating"].stringValue
+                    }
+                    try backgroundContext.save()
+                    defaults.set(true, forKey: dWasLaunchedBefore)
+                } catch {
+                    print(error.localizedDescription)
+                }
             }
         }
     }
