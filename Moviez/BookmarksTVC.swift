@@ -18,6 +18,10 @@ class BookmarksTVC: UITableViewController {
         readData()
     }
     
+    func moviesByType(type: TypeEnum) -> [NSManagedObject] {
+        return movies.filter {($0 as? Movie)?.value(forKey: "type") as? String == type.title()}
+    }
+    
     func deletionAlert(title: String, completion: @escaping (UIAlertAction) -> Void) {
         let alertMsg = "\(NSLocalizedString("str_delete_msg", comment: "")) \(title)?"
         let alert = UIAlertController(title: NSLocalizedString("str_warning", comment: ""), message: alertMsg, preferredStyle: .actionSheet)
@@ -38,11 +42,18 @@ class BookmarksTVC: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return TypeEnum.allCases.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+        if let type = TypeEnum(rawValue: section) {
+            return moviesByType(type: type).count
+        }
+        return 0
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return TypeEnum(rawValue: section)?.title()
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -50,10 +61,12 @@ class BookmarksTVC: UITableViewController {
             fatalError("Expected MovieTVCell")
         }
         
-        if let item = movies[indexPath.row] as? Movie {
-            cell.update(with: item)
+        if let type = TypeEnum(rawValue: indexPath.section) {
+            let moviesFiltered = moviesByType(type: type)
+            if let item = moviesFiltered[indexPath.row] as? Movie {
+                cell.update(with: item)
+            }
         }
-        
         return cell
     }
     

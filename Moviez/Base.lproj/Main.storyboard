@@ -14,11 +14,11 @@
             <objects>
                 <viewController id="Z3j-M0-cka" customClass="SearchVC" customModule="Moviez" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zqH-VY-myh">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="O2B-jD-omO">
-                                <rect key="frame" x="12" y="56" width="390" height="284"/>
+                                <rect key="frame" x="12" y="12" width="390" height="176"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="a4M-dm-hnG">
                                         <rect key="frame" x="0.0" y="0.0" width="390" height="34"/>
@@ -31,27 +31,34 @@
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="haP-5s-ZbH">
                                                 <rect key="frame" x="195" y="0.0" width="195" height="34"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ARz-dW-7om">
-                                        <rect key="frame" x="0.0" y="34" width="390" height="216"/>
+                                        <rect key="frame" x="0.0" y="34" width="390" height="108"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="str_type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XXu-ob-shk">
-                                                <rect key="frame" x="0.0" y="0.0" width="195" height="216"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="195" height="108"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vi6-ta-taR">
-                                                <rect key="frame" x="195" y="0.0" width="195" height="216"/>
+                                                <rect key="frame" x="195" y="0.0" width="195" height="108"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="108" id="tnt-g4-xNF"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="Z3j-M0-cka" id="U2z-b3-VFD"/>
+                                                    <outlet property="delegate" destination="Z3j-M0-cka" id="TOu-d6-CIA"/>
+                                                </connections>
                                             </pickerView>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="5Ra-eX-7Jb">
-                                        <rect key="frame" x="0.0" y="250" width="390" height="34"/>
+                                        <rect key="frame" x="0.0" y="142" width="390" height="34"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="str_year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dkA-RA-Avz">
                                                 <rect key="frame" x="0.0" y="0.0" width="195" height="34"/>
@@ -61,33 +68,55 @@
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5F2-B3-NXD">
                                                 <rect key="frame" x="195" y="0.0" width="195" height="34"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                         </subviews>
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rg2-wL-lNU">
-                                <rect key="frame" x="180" y="815" width="54" height="35"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
-                                <state key="normal" title="str_go"/>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="3Fi-nR-Ve8">
+                                <rect key="frame" x="12" y="761" width="390" height="35"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ovv-Ue-qkp">
+                                        <rect key="frame" x="0.0" y="0.0" width="195" height="35"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                        <state key="normal" title="str_cancel"/>
+                                        <connections>
+                                            <action selector="onCancelBtn:" destination="Z3j-M0-cka" eventType="touchUpInside" id="kKc-t3-saX"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rg2-wL-lNU">
+                                        <rect key="frame" x="195" y="0.0" width="195" height="35"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                        <state key="normal" title="str_go"/>
+                                        <connections>
+                                            <action selector="onGoBtn:" destination="Z3j-M0-cka" eventType="touchUpInside" id="M93-xd-iF2"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="86Q-c9-WWD"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="rg2-wL-lNU" firstAttribute="centerX" secondItem="zqH-VY-myh" secondAttribute="centerX" id="0PP-0H-2fR"/>
+                            <constraint firstItem="86Q-c9-WWD" firstAttribute="bottom" secondItem="3Fi-nR-Ve8" secondAttribute="bottom" constant="12" id="40P-7l-QjA"/>
+                            <constraint firstItem="3Fi-nR-Ve8" firstAttribute="leading" secondItem="86Q-c9-WWD" secondAttribute="leading" constant="12" id="CaO-HM-Bqq"/>
                             <constraint firstItem="O2B-jD-omO" firstAttribute="top" secondItem="86Q-c9-WWD" secondAttribute="top" constant="12" id="DEb-sz-Oza"/>
+                            <constraint firstItem="86Q-c9-WWD" firstAttribute="trailing" secondItem="3Fi-nR-Ve8" secondAttribute="trailing" constant="12" id="EjL-Yg-bAo"/>
                             <constraint firstItem="86Q-c9-WWD" firstAttribute="trailing" secondItem="O2B-jD-omO" secondAttribute="trailing" constant="12" id="GTA-pS-cxW"/>
                             <constraint firstItem="O2B-jD-omO" firstAttribute="leading" secondItem="86Q-c9-WWD" secondAttribute="leading" constant="12" id="WfB-t1-ae6"/>
-                            <constraint firstItem="86Q-c9-WWD" firstAttribute="bottom" secondItem="rg2-wL-lNU" secondAttribute="bottom" constant="12" id="hJe-We-kWL"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="titleField" destination="haP-5s-ZbH" id="CN7-PU-2wG"/>
+                        <outlet property="typePickerView" destination="vi6-ta-taR" id="Jkx-Rn-2t7"/>
+                        <outlet property="yearField" destination="5F2-B3-NXD" id="7mp-gC-xfs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t5n-dR-sqW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="819" y="1829"/>
+            <point key="canvasLocation" x="819" y="1892"/>
         </scene>
         <!--DetailVC-->
         <scene sceneID="n1M-aA-LfY">
@@ -100,11 +129,14 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="fUf-Eh-81f">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="M8e-Pp-UiA"/>
+                    </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="43r-7j-U11" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1725" y="1829"/>
+            <point key="canvasLocation" x="1758" y="1892"/>
         </scene>
         <!--ExploreCVC-->
         <scene sceneID="Voh-Wv-phv">
@@ -115,7 +147,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="SJW-Mj-hEc">
-                            <size key="itemSize" width="120" height="200"/>
+                            <size key="itemSize" width="200" height="300"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -158,6 +190,7 @@
                                     <outlet property="activityIndicator" destination="do5-Qw-SwS" id="YPU-1G-I0I"/>
                                     <outlet property="posterImg" destination="bj4-hp-uym" id="Z0Q-uk-qrI"/>
                                     <outlet property="titleLabel" destination="T4g-Kt-asd" id="aN4-MD-3Jh"/>
+                                    <segue destination="D8k-cd-U3U" kind="show" id="NNt-I2-oM2"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -180,7 +213,11 @@
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="rsQ-Et-l9J">
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="dmu-3r-maV"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="dmu-3r-maV">
+                            <connections>
+                                <segue destination="Z3j-M0-cka" kind="presentation" identifier="SearchSegue" id="e0l-2e-sAC"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </collectionViewController>
@@ -316,6 +353,7 @@
                                     <outletCollection property="starsArray" destination="5WM-vs-XWS" collectionClass="NSMutableArray" id="yBn-qC-ftP"/>
                                     <outletCollection property="starsArray" destination="Mas-SW-fGN" collectionClass="NSMutableArray" id="78U-BO-1Xz"/>
                                     <outletCollection property="starsArray" destination="xcj-aD-0v1" collectionClass="NSMutableArray" id="LM9-bq-w3I"/>
+                                    <segue destination="D8k-cd-U3U" kind="show" id="kGW-H6-5f6"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -334,7 +372,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4vY-4K-Jo4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1726" y="1109"/>
+            <point key="canvasLocation" x="1758" y="1109"/>
         </scene>
         <!--Explore-->
         <scene sceneID="c8f-ec-Gkn">
@@ -376,7 +414,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7fb-dS-aYs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1726.0869565217392" y="375.66964285714283"/>
+            <point key="canvasLocation" x="1758" y="376"/>
         </scene>
         <!--Web ViewVC-->
         <scene sceneID="fgP-87-SJM">
@@ -512,6 +550,9 @@
             <point key="canvasLocation" x="3545" y="376"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="NNt-I2-oM2"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="book.fill" catalog="system" width="128" height="102"/>
         <image name="gear" catalog="system" width="128" height="119"/>

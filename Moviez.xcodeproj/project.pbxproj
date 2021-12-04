@@ -29,6 +29,7 @@
 		B97D5AB3275B4362001ADDB6 /* ExploreCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97D5AB2275B4362001ADDB6 /* ExploreCVC.swift */; };
 		B98CE784275B05C300CD284C /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98CE783275B05C300CD284C /* SwiftyJSON.swift */; };
 		B98CE786275B064200CD284C /* Movies.json in Resources */ = {isa = PBXBuildFile; fileRef = B98CE785275B064100CD284C /* Movies.json */; };
+		B9D00487275BC3260011FF0A /* TypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D00486275BC3260011FF0A /* TypeEnum.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		B97D5AB2275B4362001ADDB6 /* ExploreCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCVC.swift; sourceTree = "<group>"; };
 		B98CE783275B05C300CD284C /* SwiftyJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		B98CE785275B064100CD284C /* Movies.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Movies.json; sourceTree = "<group>"; };
+		B9D00486275BC3260011FF0A /* TypeEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeEnum.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +90,6 @@
 		B927C4BD275AE60A0004C5E6 /* Moviez */ = {
 			isa = PBXGroup;
 			children = (
-				B927C4E0275AF9380004C5E6 /* Constants.swift */,
 				B97D5AB2275B4362001ADDB6 /* ExploreCVC.swift */,
 				B97D5AB0275B421A001ADDB6 /* PosterCVCell.swift */,
 				B927C4E8275AFECF0004C5E6 /* SearchVC.swift */,
@@ -99,9 +100,11 @@
 				B927C4EC275AFF2E0004C5E6 /* SettingsVC.swift */,
 				B927C4BE275AE60A0004C5E6 /* AppDelegate.swift */,
 				B927C4C0275AE60A0004C5E6 /* SceneDelegate.swift */,
+				B927C4E0275AF9380004C5E6 /* Constants.swift */,
+				B9427504275B67DA00D2153F /* ImageHelper.swift */,
+				B9D00486275BC3260011FF0A /* TypeEnum.swift */,
 				B98CE783275B05C300CD284C /* SwiftyJSON.swift */,
 				B98CE785275B064100CD284C /* Movies.json */,
-				B9427504275B67DA00D2153F /* ImageHelper.swift */,
 				B927C4D5275AEF400004C5E6 /* OMDb API */,
 				B927C4C4275AE60A0004C5E6 /* Main.storyboard */,
 				B927C4CA275AE60D0004C5E6 /* Assets.xcassets */,
@@ -195,6 +198,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B927C4E9275AFECF0004C5E6 /* SearchVC.swift in Sources */,
+				B9D00487275BC3260011FF0A /* TypeEnum.swift in Sources */,
 				B927C4E5275AFC070004C5E6 /* DetailHelper.swift in Sources */,
 				B97D5AB3275B4362001ADDB6 /* ExploreCVC.swift in Sources */,
 				B927C4EB275AFEF60004C5E6 /* DetailVC.swift in Sources */,

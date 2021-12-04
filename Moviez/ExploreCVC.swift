@@ -9,39 +9,21 @@ import UIKit
 
 private let reuseIdentifier = "PosterCVCell"
 
-class ExploreCVC: UICollectionViewController {
+class ExploreCVC: UICollectionViewController, SearchDelegate {
     
     var cvVertical = true
-    var cvPadding: CGFloat = 8.0
-    var cvColumns: CGFloat = 2
+    var cvMargin: CGFloat = 8.0
+    var cvColumns: CGFloat = 3
     var cvOffset: CGFloat = 0.0
     
     var items = [Item]()
     let imageHelper = ImageHelper()
     let searchHelper = SearchHelper()
     
-    var text = "Marvel" {
-        didSet {
-            updateImages()
-        }
-    }
-    var type = "" {
-        didSet {
-            updateImages()
-        }
-    }
-    
-    var year = "" {
-        didSet {
-            updateImages()
-        }
-    }
-    
-    var page = 1 {
-        didSet {
-            updateImages()
-        }
-    }
+    var searchTitle = "Marvel"
+    var type = ""
+    var year = ""
+    var page = 1
     
     var totalResults = 0
 
@@ -58,9 +40,22 @@ class ExploreCVC: UICollectionViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        self.collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
+    func updateSearch(title: String, type: String, year: String) {
+        self.searchTitle = title
+        self.type = type
+        self.year = year
+        self.page = 1
+        updateImages()
+    }
+    
     func updateImages() {
         
-        searchHelper.fetchMovies(for: text, type: type, year: year, page: page) { result in
+        searchHelper.fetchMovies(for: searchTitle, type: type, year: year, page: page) { result in
             switch result {
                 case let .Success(collection):
                     self.items = collection.Search ?? []
@@ -75,17 +70,7 @@ class ExploreCVC: UICollectionViewController {
             }
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -103,7 +88,7 @@ class ExploreCVC: UICollectionViewController {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? PosterCVCell else {
             return UICollectionViewCell()
         }
-    
+        cell.backgroundColor = .systemOrange
         return cell
     }
     
@@ -159,12 +144,14 @@ class ExploreCVC: UICollectionViewController {
     @IBAction func onPrevBtn(_ sender: Any) {
         if page > 1 {
             page -= 1
+            updateImages()
         }
     }
     
     @IBAction func onNextBtn(_ sender: Any) {
         if page * Constants.itemsPerPage < totalResults {
             page += 1
+            updateImages()
         }
     }
     
@@ -174,19 +161,32 @@ extension ExploreCVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var width = collectionView.bounds.width
-        width -= (cvColumns + 1) * cvPadding
-        return CGSize(width: width/cvColumns, height: width/cvColumns)
+        width -= (cvColumns + 1) * cvMargin
+        return CGSize(width: width/cvColumns, height: width/cvColumns * 1.5)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: cvPadding, left: cvPadding, bottom: cvPadding, right: cvPadding)
+        return UIEdgeInsets(top: cvMargin, left: cvMargin, bottom: cvMargin, right: cvMargin)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return cvPadding
+        return cvMargin
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return cvPadding
+        return cvMargin
+    }
+    
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+            case "SearchSegue":
+                if let searchVC = segue.destination as? SearchVC {
+                    searchVC.delegate = self
+            }
+            default: break
+        }
     }
 }

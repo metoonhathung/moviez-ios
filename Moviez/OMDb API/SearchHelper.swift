@@ -43,11 +43,11 @@ class SearchHelper {
         return components.url
     }
 
-    func fetchMovies(for text: String, type: String, year: String, page: Int, completion: @escaping (SearchHelperResult) -> Void) {
+    func fetchMovies(for title: String, type: String, year: String, page: Int, completion: @escaping (SearchHelperResult) -> Void) {
         
         let params = [
             "apikey": Constants.apikey,
-            "s": text,
+            "s": title,
             "type": type,
             "y": year,
             "page": String(page)

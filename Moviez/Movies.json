@@ -6,5 +6,13 @@
     "type": "movie",
     "poster": "https://m.media-amazon.com/images/M/MV5BNTliYjlkNDQtMjFlNS00NjgzLWFmMWEtYmM2Mzc2Zjg3ZjEyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg",
     "rating": "7.8"
+  },
+  {
+    "id": "tt13650480",
+    "title": "Marvel Studios: Legends",
+    "year": "2021–",
+    "type": "series",
+    "poster": "https://m.media-amazon.com/images/M/MV5BNGE3ODYyNDYtODk1NS00ODRmLTk5YTYtOGMyMTZkYTEyODhlXkEyXkFqcGdeQXVyODQ4MjU1MDk@._V1_SX300.jpg",
+    "rating": "6.5"
   }
 ]
