@@ -16,6 +16,7 @@ class BookmarksTVC: UITableViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.backgroundColor = UIColor(named: "primary")
         
         localized()
         NotificationCenter.default.addObserver(forName: Notifications.languageChanged, object: nil, queue: nil) { _ in
@@ -72,6 +73,7 @@ class BookmarksTVC: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MovieTVCell") as? MovieTVCell else {
             fatalError("Expected MovieTVCell")
         }
+        cell.backgroundColor = UIColor(named: "secondary")
         
         if let type = TypeEnum(rawValue: indexPath.section) {
             let moviesFiltered = moviesByType(type: type)

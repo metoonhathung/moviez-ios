@@ -33,6 +33,7 @@ class SettingsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor(named: "primary")
         
         let darkMode = defaults.bool(forKey: dDarkMode)
         darkModeSwitch.isOn = darkMode

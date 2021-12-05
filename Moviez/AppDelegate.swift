@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let dict: [String : Any] = [
             dWasLaunchedBefore: false,
-            dDarkMode: true,
+            dDarkMode: false,
             dLanguage: "vi",
             dVertical: true,
             dColumns: 2,

@@ -32,6 +32,7 @@ class ExploreCVC: UICollectionViewController, UIGestureRecognizerDelegate, Searc
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.backgroundColor = UIColor(named: "primary")
         
         let longPressGR = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
         longPressGR.minimumPressDuration = 0.5
@@ -122,7 +123,7 @@ class ExploreCVC: UICollectionViewController, UIGestureRecognizerDelegate, Searc
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? PosterCVCell else {
             return UICollectionViewCell()
         }
-        cell.backgroundColor = .systemGray6
+        cell.backgroundColor = UIColor(named: "secondary")
         return cell
     }
     

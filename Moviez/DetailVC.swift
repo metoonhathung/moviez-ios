@@ -53,6 +53,8 @@ class DetailVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor(named: "primary")
+        posterImg?.backgroundColor = UIColor(named: "secondary")
         posterCenter = posterImg.center
         
         let downSwipeGR = UISwipeGestureRecognizer(target: self, action: #selector(handleDownSwipe(_:)))
