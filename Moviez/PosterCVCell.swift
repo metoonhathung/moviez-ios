@@ -32,9 +32,17 @@ class PosterCVCell: UICollectionViewCell {
             posterImg?.image = nil
             titleLabel?.text = ""
         }
+        
+        flipFromLeft()
     }
     
     override var canBecomeFirstResponder: Bool {
         return true
+    }
+    
+    func flipFromLeft() {
+        UIView.transition(with: self, duration: 0.5, options: [.transitionFlipFromLeft], animations: {
+            
+        })
     }
 }

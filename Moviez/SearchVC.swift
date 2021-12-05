@@ -79,10 +79,10 @@ extension SearchVC: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return TypeEnum.allCases.count
+        return TypeEnum.allCases.count + 1
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return TypeEnum(rawValue: row)?.title().localized()
+        return TypeEnum(rawValue: row)?.title().localized() ?? "all".localized()
     }
 }

@@ -14,6 +14,8 @@ class DetailVC: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    var posterCenter = CGPoint()
+    
     var detail: DetailModel? {
         willSet {
             OperationQueue.main.addOperation {
@@ -51,7 +53,15 @@ class DetailVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        posterCenter = posterImg.center
+        
+        let downSwipeGR = UISwipeGestureRecognizer(target: self, action: #selector(handleDownSwipe(_:)))
+        downSwipeGR.direction = .down
+        view.addGestureRecognizer(downSwipeGR)
+        
+        let upSwipeGR = UISwipeGestureRecognizer(target: self, action: #selector(handleUpSwipe(_:)))
+        upSwipeGR.direction = .up
+        view.addGestureRecognizer(upSwipeGR)
         // Do any additional setup after loading the view.
     }
     
@@ -70,6 +80,20 @@ class DetailVC: UIViewController {
         alert.popoverPresentationController?.sourceRect = CGRect(x: self.view.frame.midX, y: self.view.frame.midY, width: 0, height: 0)
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func handleDownSwipe(_ gesture: UISwipeGestureRecognizer) {
+        UIView.animate(withDuration: 1.0, animations: {
+            self.posterImg?.center = self.view.center
+            self.posterImg?.transform = CGAffineTransform(scaleX: 3.0, y: 3.0)
+        })
+    }
+    
+    @objc func handleUpSwipe(_ gesture: UISwipeGestureRecognizer) {
+        UIView.animate(withDuration: 1.0, animations: {
+            self.posterImg?.center = self.posterCenter
+            self.posterImg?.transform = CGAffineTransform.identity
+        })
     }
     
     @IBAction func onActionBtn(_ sender: Any) {

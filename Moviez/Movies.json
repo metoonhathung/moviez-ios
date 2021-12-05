@@ -14,5 +14,21 @@
     "type": "series",
     "poster": "https://m.media-amazon.com/images/M/MV5BNTkwOTE1ZDYtODQ3Yy00YTYwLTg0YWQtYmVkNmFjNGZlYmRiXkEyXkFqcGdeQXVyNTc4MjczMTM@._V1_SX300.jpg",
     "rating": "8.4"
+  },
+  {
+    "id": "tt4154796",
+    "title": "Avengers: Endgame",
+    "year": "2019",
+    "type": "movie",
+    "poster": "https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_SX300.jpg",
+    "rating": "8.4"
+  },
+  {
+    "id": "tt9140560",
+    "title": "WandaVision",
+    "year": "2021",
+    "type": "series",
+    "poster": "https://m.media-amazon.com/images/M/MV5BZGEwYmMwZmMtMTQ3MS00YWNhLWEwMmQtZTU5YTIwZmJjZGQ0XkEyXkFqcGdeQXVyMTI5MzA5MjA1._V1_SX300.jpg",
+    "rating": "8.4"
   }
 ]

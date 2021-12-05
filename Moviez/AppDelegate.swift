@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             dDarkMode: true,
             dLanguage: "vi",
             dVertical: true,
-            dColumns: 3,
+            dColumns: 2,
             dPadding: 16,
             dOffset: false
         ]

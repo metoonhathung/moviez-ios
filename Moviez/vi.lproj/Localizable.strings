@@ -50,6 +50,7 @@
 
 "movie" = "Phim lẻ";
 "series" = "Phim bộ";
+"all" = "Tất cả";
 
 "str_app_name" = "Tên ứng dụng";
 "str_app_version" = "Phiên bản";

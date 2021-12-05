@@ -50,6 +50,7 @@
 
 "movie" = "Movie";
 "series" = "Series";
+"all" = "All";
 
 "str_app_name" = "App Name";
 "str_app_version" = "App Version";

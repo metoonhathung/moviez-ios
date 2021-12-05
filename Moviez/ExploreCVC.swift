@@ -198,6 +198,7 @@ class ExploreCVC: UICollectionViewController, UIGestureRecognizerDelegate, Searc
                 if let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first,
                    let detailVC = segue.destination as? DetailVC {
                     let item = items[selectedIndexPath.row]
+                    
                     imageHelper.fetchImage(urlString: item.Poster) { result in
                         switch result {
                         case let .Success(imgData):
@@ -208,6 +209,7 @@ class ExploreCVC: UICollectionViewController, UIGestureRecognizerDelegate, Searc
                             print("Error fetching image: \(error)")
                         }
                     }
+                    
                     detailHelper.fetchDetail(for: item.imdbID) { result in
                         switch result {
                             case let .Success(detail):
@@ -277,7 +279,7 @@ class ExploreCVC: UICollectionViewController, UIGestureRecognizerDelegate, Searc
             let item = items[index.row]
             selectedItem = item
             
-            let cell = collectionView.cellForItem(at: index)
+            let cell = collectionView.cellForItem(at: index) as? PosterCVCell
             cell?.becomeFirstResponder()
             showMenu(location: point)
         }

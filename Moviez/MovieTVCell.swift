@@ -53,10 +53,17 @@ class MovieTVCell: UITableViewCell {
                     if let image = UIImage(data: imgData) {
                         self.activityIndicator?.stopAnimating()
                         self.posterImg.image = image
+                        self.flipFromTop()
                     }
                 }
             })
         }
+    }
+    
+    func flipFromTop() {
+        UIView.transition(with: self, duration: 0.5, options: [.transitionFlipFromTop], animations: {
+            
+        })
     }
 
 }
