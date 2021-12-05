@@ -1,0 +1,55 @@
+/* 
+  Localizable.strings
+  Moviez
+
+  Created by Trần Ngô Nhật Hưng on 12/4/21.
+  
+*/
+
+"str_explore" = "Explore";
+"str_bookmarks" = "Bookmarks";
+"str_webview" = "Web View";
+"str_settings" = "Settings";
+
+"str_title" = "Title";
+"str_year" = "Year";
+"str_rated" = "Rated";
+"str_released" = "Released";
+"str_runtime" = "Runtime";
+"str_genre" = "Genre";
+"str_director" = "Director";
+"str_writer" = "Writer";
+"str_actors" = "Actors";
+"str_plot" = "Plot";
+"str_language" = "Language";
+"str_country" = "Country";
+"str_awards" = "Awards";
+"str_rating" = "Rating";
+"str_votes" = "Votes";
+"str_type" = "Type";
+
+"str_go" = "Go";
+"str_cancel" = "Cancel";
+"str_add" = "Add";
+"str_delete" = "Delete";
+"str_warning" = "Warning";
+"str_add_msg" = "Are you sure you want to add";
+"str_delete_msg" = "Are you sure you want to delete";
+
+"str_darkmode" = "Dark mode";
+"str_direction" = "Direction";
+"str_columns" = "Columns";
+"str_padding" = "Padding";
+"str_bottom" = "Bottom inset";
+
+"en" = "English";
+"vi" = "Vietnamese";
+
+"vertical" = "Vertical";
+"horizontal" = "Horizontal";
+
+"movie" = "Movie";
+"series" = "Series";
+
+"str_app_name" = "App Name";
+"str_app_version" = "App Version";

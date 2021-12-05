@@ -1,0 +1,55 @@
+/* 
+  Localizable.strings
+  Moviez
+
+  Created by Trần Ngô Nhật Hưng on 12/4/21.
+  
+*/
+
+"str_explore" = "Khám phá";
+"str_bookmarks" = "Dấu trang";
+"str_webview" = "Trình duyệt";
+"str_settings" = "Cài đặt";
+
+"str_title" = "Tiêu đề";
+"str_year" = "Năm";
+"str_rated" = "Nhãn";
+"str_released" = "Phát hành";
+"str_runtime" = "Thời lượng";
+"str_genre" = "Thể loại";
+"str_director" = "Đạo diễn";
+"str_writer" = "Biên kịch";
+"str_actors" = "Diễn viên";
+"str_plot" = "Cốt truyện";
+"str_language" = "Ngôn ngữ";
+"str_country" = "Quốc gia";
+"str_awards" = "Giải thưởng";
+"str_rating" = "Đánh giá";
+"str_votes" = "Số phiếu";
+"str_type" = "Phân loại";
+
+"str_go" = "Truy cập";
+"str_cancel" = "Huỷ";
+"str_add" = "Thêm";
+"str_delete" = "Xoá";
+"str_warning" = "Cảnh báo";
+"str_add_msg" = "Bạn có chắc muốn thêm";
+"str_delete_msg" = "Bạn có chắc muốn xoá";
+
+"str_darkmode" = "Ban đêm";
+"str_direction" = "Hướng";
+"str_columns" = "Cột";
+"str_padding" = "Lề";
+"str_bottom" = "Cách dưới";
+
+"en" = "Tiếng Anh";
+"vi" = "Tiếng việt";
+
+"vertical" = "Dọc";
+"horizontal" = "Ngang";
+
+"movie" = "Phim lẻ";
+"series" = "Phim bộ";
+
+"str_app_name" = "Tên ứng dụng";
+"str_app_version" = "Phiên bản";

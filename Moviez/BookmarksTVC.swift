@@ -16,9 +16,18 @@ class BookmarksTVC: UITableViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "str_bookmarks"
+        
+        localized()
+        NotificationCenter.default.addObserver(forName: Notifications.languageChanged, object: nil, queue: nil) { _ in
+            self.localized()
+        }
         NotificationCenter.default.addObserver(self, selector: #selector(saveItem), name: Notifications.movieAdded, object: nil)
         readData()
+    }
+    
+    func localized() {
+        navigationItem.title = "str_bookmarks".localized()
+        tableView.reloadData()
     }
     
     func moviesByType(type: TypeEnum) -> [NSManagedObject] {
@@ -26,11 +35,11 @@ class BookmarksTVC: UITableViewController {
     }
     
     func deletionAlert(title: String, completion: @escaping (UIAlertAction) -> Void) {
-        let alertMsg = "\(NSLocalizedString("str_delete_msg", comment: "")) \(title)?"
-        let alert = UIAlertController(title: NSLocalizedString("str_warning", comment: ""), message: alertMsg, preferredStyle: .alert)
+        let alertMsg = "\("str_delete_msg".localized()) \(title)?"
+        let alert = UIAlertController(title: "str_warning".localized(), message: alertMsg, preferredStyle: .alert)
         
-        let deleteAction = UIAlertAction(title: NSLocalizedString("str_delete", comment: ""), style: .destructive, handler: completion)
-        let cancelAction = UIAlertAction(title: NSLocalizedString("str_cancel", comment: ""), style: .cancel)
+        let deleteAction = UIAlertAction(title: "str_delete".localized(), style: .destructive, handler: completion)
+        let cancelAction = UIAlertAction(title: "str_cancel".localized(), style: .cancel)
         
         alert.addAction(deleteAction)
         alert.addAction(cancelAction)
@@ -56,7 +65,7 @@ class BookmarksTVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return TypeEnum(rawValue: section)?.title()
+        return TypeEnum(rawValue: section)?.title().localized()
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

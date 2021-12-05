@@ -13,9 +13,24 @@ class PosterCVCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    func update(image: UIImage, title: String) {
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        update(image: nil, title: "")
+    }
+    
+    func update(image: UIImage?, title: String) {
         activityIndicator?.stopAnimating()
         posterImg?.image = image
         titleLabel?.text = title
+        
+        if let displayImage = image {
+            activityIndicator?.stopAnimating()
+            posterImg?.image = displayImage
+            titleLabel?.text = title
+        } else {
+            activityIndicator?.startAnimating()
+            posterImg?.image = nil
+            titleLabel?.text = ""
+        }
     }
 }

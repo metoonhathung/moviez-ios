@@ -13,11 +13,23 @@ class WebViewVC: UIViewController {
     @IBOutlet weak var urlField: UITextField!
     @IBOutlet weak var webView: WKWebView!
     
+    @IBOutlet weak var constGoBtn: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "str_webview"
+        
+        localized()
+        NotificationCenter.default.addObserver(forName: Notifications.languageChanged, object: nil, queue: nil) { _ in
+            self.localized()
+        }
+        
         urlField?.text = "https://www.imdb.com/"
         loadRequest()
+    }
+    
+    func localized() {
+        navigationItem.title = "str_webview".localized()
+        constGoBtn?.setTitle("str_go".localized(), for: .normal)
     }
     
     func loadRequest() {

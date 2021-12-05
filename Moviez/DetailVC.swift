@@ -19,22 +19,22 @@ class DetailVC: UIViewController {
             OperationQueue.main.addOperation {
                 self.navigationItem.title = newValue?.Title ?? ""
                 self.descriptionLabel?.text = """
-                \("str_title"): \(newValue?.Title ?? "")
-                \("str_year"): \(newValue?.Year ?? "")
-                \("str_rated"): \(newValue?.Rated ?? "")
-                \("str_released"): \(newValue?.Released ?? "")
-                \("str_runtime"): \(newValue?.Runtime ?? "")
-                \("str_genre"): \(newValue?.Genre ?? "")
-                \("str_director"): \(newValue?.Director ?? "")
-                \("str_writer"): \(newValue?.Writer ?? "")
-                \("str_actors"): \(newValue?.Actors ?? "")
-                \("str_plot"): \(newValue?.Plot ?? "")
-                \("str_language"): \(newValue?.Language ?? "")
-                \("str_country"): \(newValue?.Country ?? "")
-                \("str_awards"): \(newValue?.Awards ?? "")
-                \("str_rating"): \(newValue?.imdbRating ?? "")
-                \("str_votes"): \(newValue?.imdbVotes ?? "")
-                \("str_type"): \(newValue?.Type ?? "")
+                \("str_title".localized()): \(newValue?.Title ?? "")
+                \("str_year".localized()): \(newValue?.Year ?? "")
+                \("str_rated".localized()): \(newValue?.Rated ?? "")
+                \("str_released".localized()): \(newValue?.Released ?? "")
+                \("str_runtime".localized()): \(newValue?.Runtime ?? "")
+                \("str_genre".localized()): \(newValue?.Genre ?? "")
+                \("str_director".localized()): \(newValue?.Director ?? "")
+                \("str_writer".localized()): \(newValue?.Writer ?? "")
+                \("str_actors".localized()): \(newValue?.Actors ?? "")
+                \("str_plot".localized()): \(newValue?.Plot ?? "")
+                \("str_language".localized()): \(newValue?.Language ?? "")
+                \("str_country".localized()): \(newValue?.Country ?? "")
+                \("str_awards".localized()): \(newValue?.Awards ?? "")
+                \("str_rating".localized()): \(newValue?.imdbRating ?? "")
+                \("str_votes".localized()): \(newValue?.imdbVotes ?? "")
+                \("str_type".localized()): \(newValue?.Type ?? "")
                 """
             }
         }
@@ -56,11 +56,11 @@ class DetailVC: UIViewController {
     }
     
     func addActionSheet(title: String, completion: @escaping (UIAlertAction) -> Void) {
-        let alertMsg = "\(NSLocalizedString("str_add_msg", comment: "")) \(title)?"
-        let alert = UIAlertController(title: NSLocalizedString("str_warning", comment: ""), message: alertMsg, preferredStyle: .actionSheet)
+        let alertMsg = "\("str_add_msg".localized()) \(title)?"
+        let alert = UIAlertController(title: "str_warning".localized(), message: alertMsg, preferredStyle: .actionSheet)
         
-        let addAction = UIAlertAction(title: NSLocalizedString("str_add", comment: ""), style: .default, handler: completion)
-        let cancelAction = UIAlertAction(title: NSLocalizedString("str_cancel", comment: ""), style: .cancel)
+        let addAction = UIAlertAction(title: "str_add".localized(), style: .default, handler: completion)
+        let cancelAction = UIAlertAction(title: "str_cancel".localized(), style: .cancel)
         
         alert.addAction(addAction)
         alert.addAction(cancelAction)

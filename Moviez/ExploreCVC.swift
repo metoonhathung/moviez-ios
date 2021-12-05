@@ -30,8 +30,11 @@ class ExploreCVC: UICollectionViewController, SearchDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "str_explore"
         
+        localized()
+        NotificationCenter.default.addObserver(forName: Notifications.languageChanged, object: nil, queue: nil) { _ in
+            self.localized()
+        }
         NotificationCenter.default.addObserver(self, selector: #selector(onDirection), name: Notifications.directionChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onColumns), name: Notifications.columnsChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onPadding), name: Notifications.paddingChanged, object: nil)
@@ -62,6 +65,10 @@ class ExploreCVC: UICollectionViewController, SearchDelegate {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         self.collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
+    func localized() {
+        navigationItem.title = "str_explore".localized()
     }
     
     func updateSearch(title: String, type: String, year: String) {

@@ -21,10 +21,13 @@ let dColumns = "columns"
 let dPadding = "padding"
 let dOffset = "offset"
 
+var lang = "en"
+
 public struct Notifications {
     public static let movieAdded = Notification.Name(rawValue: "MovieAdded")
     public static let directionChanged = Notification.Name(rawValue: "DirectionChanged")
     public static let columnsChanged = Notification.Name(rawValue: "ColumnsChanged")
     public static let paddingChanged = Notification.Name(rawValue: "PaddingChanged")
     public static let bottomChanged = Notification.Name(rawValue: "BottomChanged")
+    public static let languageChanged = Notification.Name(rawValue: "LanguageChanged")
 }

@@ -17,20 +17,25 @@ class SettingsVC: UIViewController {
     @IBOutlet weak var paddingStepper: UIStepper!
     @IBOutlet weak var paddingLabel: UILabel!
     @IBOutlet weak var bottomSwitch: UISwitch!
+    @IBOutlet weak var infoLabel: UILabel!
     
     let appName = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String
+    let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
     let defaults = UserDefaults.standard
 
+    @IBOutlet weak var constDarkModeLabel: UILabel!
+    @IBOutlet weak var constLanguageLabel: UILabel!
+    @IBOutlet weak var constDirectionLabel: UILabel!
+    @IBOutlet weak var constColumnsLabel: UILabel!
+    @IBOutlet weak var constPaddingLabel: UILabel!
+    @IBOutlet weak var constBottomLabel: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "str_settings"
         
         let darkMode = defaults.bool(forKey: dDarkMode)
         darkModeSwitch.isOn = darkMode
-        if #available(iOS 13, *) {
-            let appDelegate = UIApplication.shared.windows.first
-            appDelegate?.overrideUserInterfaceStyle = darkMode ? .dark : .light
-        }
         
         let vertical = defaults.bool(forKey: dVertical)
         directionPicker?.selectRow(vertical ? DirectionEnum.vertical.rawValue : DirectionEnum.horizontal.rawValue, inComponent: 0, animated: false)
@@ -47,7 +52,28 @@ class SettingsVC: UIViewController {
         let offset = defaults.bool(forKey: dOffset)
         bottomSwitch.isOn = offset
         
+        localized()
+        NotificationCenter.default.addObserver(forName: Notifications.languageChanged, object: nil, queue: nil) { _ in
+            self.localized()
+        }
+        
         // Do any additional setup after loading the view.
+    }
+    
+    func localized() {
+        navigationItem.title = "str_settings".localized()
+        constDarkModeLabel?.text = "str_darkmode".localized()
+        constLanguageLabel?.text = "str_language".localized()
+        constDirectionLabel?.text = "str_direction".localized()
+        constColumnsLabel?.text = "str_columns".localized()
+        constPaddingLabel?.text = "str_padding".localized()
+        constBottomLabel?.text = "str_bottom".localized()
+        infoLabel?.text = """
+        \("str_app_name".localized()): \(appName ?? "")
+        \("str_app_version".localized()): \(appVersion ?? "")
+        """
+        languagePicker?.reloadAllComponents()
+        directionPicker?.reloadAllComponents()
     }
     
     @IBAction func onDarkModeChanged(_ sender: UISwitch) {
@@ -124,9 +150,9 @@ extension SettingsVC: UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch pickerView {
         case languagePicker:
-            return LanguageEnum(rawValue: row)?.title()
+            return LanguageEnum(rawValue: row)?.title().localized()
         case directionPicker:
-            return DirectionEnum(rawValue: row)?.title()
+            return DirectionEnum(rawValue: row)?.title().localized()
         default: return ""
         }
     }
@@ -134,7 +160,11 @@ extension SettingsVC: UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView {
         case languagePicker:
-            print(LanguageEnum(rawValue: row)?.title() ?? "")
+            lang = LanguageEnum(rawValue: row)?.title() ?? ""
+            defaults.set(lang, forKey: dLanguage)
+            let dict: [String: String] = ["language": lang]
+            NotificationCenter.default.post(name: Notifications.languageChanged, object: nil, userInfo: dict)
+            
         case directionPicker:
             let vertical = DirectionEnum(rawValue: row) == .vertical
             defaults.set(vertical, forKey: dVertical)
@@ -142,5 +172,13 @@ extension SettingsVC: UIPickerViewDataSource, UIPickerViewDelegate {
             NotificationCenter.default.post(name: Notifications.directionChanged, object: nil, userInfo: dict)
         default: break
         }
+    }
+}
+
+extension String {
+    func localized() -> String {
+        let path = Bundle.main.path(forResource: lang, ofType: "lproj")
+        let bundle = Bundle(path: path!)
+        return NSLocalizedString(self, tableName: nil, bundle: bundle!, value: "", comment: "")
     }
 }

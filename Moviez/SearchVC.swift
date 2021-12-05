@@ -19,10 +19,29 @@ class SearchVC: UIViewController {
     
     weak var delegate: SearchDelegate?
     
+    @IBOutlet weak var constTitleLabel: UILabel!
+    @IBOutlet weak var constTypeLabel: UILabel!
+    @IBOutlet weak var constYearLabel: UILabel!
+    @IBOutlet weak var constCancelBtn: UIButton!
+    @IBOutlet weak var constGoBtn: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        localized()
+        NotificationCenter.default.addObserver(forName: Notifications.languageChanged, object: nil, queue: nil) { _ in
+            self.localized()
+        }
+        
         // Do any additional setup after loading the view.
+    }
+    
+    func localized() {
+        constTitleLabel?.text = "str_title".localized()
+        constTypeLabel?.text = "str_type".localized()
+        constYearLabel?.text = "str_year".localized()
+        constCancelBtn?.setTitle("str_cancel".localized(), for: .normal)
+        constGoBtn?.setTitle("str_go".localized(), for: .normal)
+        typePicker?.reloadAllComponents()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -64,6 +83,6 @@ extension SearchVC: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return TypeEnum(rawValue: row)?.title()
+        return TypeEnum(rawValue: row)?.title().localized()
     }
 }
