@@ -33,4 +33,8 @@ class PosterCVCell: UICollectionViewCell {
             titleLabel?.text = ""
         }
     }
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
 }

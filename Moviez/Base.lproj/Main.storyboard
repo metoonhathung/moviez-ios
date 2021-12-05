@@ -260,10 +260,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="TPf-vy-0f8" kind="show" identifier="WebViewSegue" id="52g-ZI-kxr"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hrF-VQ-a0i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="818.84057971014499" y="1108.9285714285713"/>
+            <point key="canvasLocation" x="818" y="1108"/>
         </scene>
         <!--BookmarksTVC-->
         <scene sceneID="BZc-nO-9Z9">
@@ -510,7 +513,7 @@
                                 </subviews>
                             </stackView>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DUz-7K-pYM">
-                                <rect key="frame" x="12" y="198" width="366" height="551"/>
+                                <rect key="frame" x="12" y="198" width="366" height="502"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -764,6 +767,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="TL8-9J-IMj" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Web View" image="globe" catalog="system" id="Dg6-qs-V9d"/>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="7nR-7I-epM"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="ZNf-dt-pLL">
                         <rect key="frame" x="0.0" y="44" width="390" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -798,7 +802,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="kGW-H6-5f6"/>
+        <segue reference="52g-ZI-kxr"/>
+        <segue reference="NNt-I2-oM2"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="book.fill" catalog="system" width="128" height="102"/>

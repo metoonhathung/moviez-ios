@@ -9,7 +9,7 @@ import UIKit
 
 private let reuseIdentifier = "PosterCVCell"
 
-class ExploreCVC: UICollectionViewController, SearchDelegate {
+class ExploreCVC: UICollectionViewController, UIGestureRecognizerDelegate, SearchDelegate {
     
     var cvVertical = true
     var cvPadding: CGFloat = 8
@@ -17,6 +17,9 @@ class ExploreCVC: UICollectionViewController, SearchDelegate {
     var cvOffset: CGFloat = 0
     
     var items = [Item]()
+    var selectedItem: Item? = nil
+    var webViewLink = "https://www.imdb.com/"
+    
     let imageHelper = ImageHelper()
     let searchHelper = SearchHelper()
     let detailHelper = DetailHelper()
@@ -25,11 +28,16 @@ class ExploreCVC: UICollectionViewController, SearchDelegate {
     var type = ""
     var year = ""
     var page = 1
-    
     var totalResults = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let longPressGR = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
+        longPressGR.minimumPressDuration = 0.5
+        longPressGR.delaysTouchesBegan = true
+        longPressGR.delegate = self
+        self.collectionView.addGestureRecognizer(longPressGR)
         
         localized()
         NotificationCenter.default.addObserver(forName: Notifications.languageChanged, object: nil, queue: nil) { _ in
@@ -209,10 +217,14 @@ class ExploreCVC: UICollectionViewController, SearchDelegate {
                         }
                     }
                 }
+            case "WebViewSegue":
+                if let webViewVC = segue.destination as? WebViewVC {
+                    webViewVC.link = webViewLink
+                }
             case "SearchSegue":
                 if let searchVC = segue.destination as? SearchVC {
                     searchVC.delegate = self
-            }
+                }
             default: break
         }
     }
@@ -251,6 +263,43 @@ class ExploreCVC: UICollectionViewController, SearchDelegate {
         }
     }
     
+    // MARK: - Gestures
+    
+    @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        if gestureRecognizer.state != UIGestureRecognizer.State.ended {
+            return
+        }
+
+        let point = gestureRecognizer.location(in: collectionView)
+        let indexPath = collectionView.indexPathForItem(at: point)
+
+        if let index = indexPath {
+            let item = items[index.row]
+            selectedItem = item
+            
+            let cell = collectionView.cellForItem(at: index)
+            cell?.becomeFirstResponder()
+            showMenu(location: point)
+        }
+    }
+    
+    func showMenu(location: CGPoint) {
+
+        let copyTitleItem = UIMenuItem(title: "Copy title to Clipboard", action: #selector(copyTitle))
+        let openWebViewItem = UIMenuItem(title: "Open in Web View", action: #selector(openWebView))
+
+        UIMenuController.shared.menuItems = [copyTitleItem, openWebViewItem]
+        UIMenuController.shared.showMenu(from: self.collectionView, rect: CGRect(origin: location, size: CGSize.zero))
+    }
+    
+    @objc func copyTitle() {
+        UIPasteboard.general.string = selectedItem?.Title
+    }
+    
+    @objc func openWebView() {
+        webViewLink = "https://www.imdb.com/title/\(selectedItem?.imdbID ?? "")/"
+        performSegue(withIdentifier: "WebViewSegue", sender: self)
+    }
 }
 
 extension ExploreCVC: UICollectionViewDelegateFlowLayout {

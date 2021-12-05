@@ -15,6 +15,8 @@ class WebViewVC: UIViewController {
     
     @IBOutlet weak var constGoBtn: UIButton!
     
+    var link = "https://www.imdb.com/"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,7 +25,7 @@ class WebViewVC: UIViewController {
             self.localized()
         }
         
-        urlField?.text = "https://www.imdb.com/"
+        urlField?.text = link
         loadRequest()
     }
     
@@ -33,8 +35,7 @@ class WebViewVC: UIViewController {
     }
     
     func loadRequest() {
-        if let address = urlField?.text,
-           let url = URL(string: address) {
+        if let url = URL(string: link) {
             let request = URLRequest(url: url)
             webView.load(request)
         }
@@ -45,6 +46,7 @@ class WebViewVC: UIViewController {
     }
     
     @IBAction func onGoBtn(_ sender: Any) {
+        link = urlField?.text ?? ""
         loadRequest()
     }
     
