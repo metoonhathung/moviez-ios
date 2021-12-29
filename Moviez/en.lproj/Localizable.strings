@@ -9,6 +9,7 @@
 "str_explore" = "Explore";
 "str_bookmarks" = "Bookmarks";
 "str_webview" = "Web View";
+"str_mapview" = "Map View";
 "str_settings" = "Settings";
 
 "str_title" = "Title";
@@ -32,9 +33,15 @@
 "str_cancel" = "Cancel";
 "str_add" = "Add";
 "str_delete" = "Delete";
+"str_camera" = "Camera";
+"str_gallery" = "Gallery";
 "str_warning" = "Warning";
 "str_add_msg" = "Are you sure you want to add";
 "str_delete_msg" = "Are you sure you want to delete";
+"str_choose_media_msg" = "Choose media";
+"str_no_camera_msg" = "No camera";
+"str_no_location_msg" = "No location";
+"str_here_msg" = "You are here!";
 
 "str_darkmode" = "Dark mode";
 "str_direction" = "Direction";
@@ -50,7 +57,6 @@
 
 "movie" = "Movie";
 "series" = "Series";
-"all" = "All";
 
 "str_app_name" = "App Name";
 "str_app_version" = "App Version";

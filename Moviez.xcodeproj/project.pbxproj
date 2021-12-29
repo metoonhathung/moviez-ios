@@ -33,6 +33,7 @@
 		B98CE784275B05C300CD284C /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98CE783275B05C300CD284C /* SwiftyJSON.swift */; };
 		B98CE786275B064200CD284C /* Movies.json in Resources */ = {isa = PBXBuildFile; fileRef = B98CE785275B064100CD284C /* Movies.json */; };
 		B9D00487275BC3260011FF0A /* TypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D00486275BC3260011FF0A /* TypeEnum.swift */; };
+		B9E826F1294698C80091B025 /* MapViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E826F0294698C80091B025 /* MapViewVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,7 @@
 		B98CE783275B05C300CD284C /* SwiftyJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		B98CE785275B064100CD284C /* Movies.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Movies.json; sourceTree = "<group>"; };
 		B9D00486275BC3260011FF0A /* TypeEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeEnum.swift; sourceTree = "<group>"; };
+		B9E826F0294698C80091B025 /* MapViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				B927C4DE275AF83A0004C5E6 /* BookmarksTVC.swift */,
 				B927C4DC275AF49B0004C5E6 /* MovieTVCell.swift */,
 				B927C4EE275AFF440004C5E6 /* WebViewVC.swift */,
+				B9E826F0294698C80091B025 /* MapViewVC.swift */,
 				B927C4EC275AFF2E0004C5E6 /* SettingsVC.swift */,
 				B927C4BE275AE60A0004C5E6 /* AppDelegate.swift */,
 				B927C4C0275AE60A0004C5E6 /* SceneDelegate.swift */,
@@ -225,6 +228,7 @@
 				B927C4D9275AF17E0004C5E6 /* DetailModel.swift in Sources */,
 				B927C4C9275AE60A0004C5E6 /* Moviez.xcdatamodeld in Sources */,
 				B927C4EF275AFF440004C5E6 /* WebViewVC.swift in Sources */,
+				B9E826F1294698C80091B025 /* MapViewVC.swift in Sources */,
 				B927C4DF275AF83A0004C5E6 /* BookmarksTVC.swift in Sources */,
 				B927C4BF275AE60A0004C5E6 /* AppDelegate.swift in Sources */,
 				B927C4E3275AF9D70004C5E6 /* SearchHelper.swift in Sources */,

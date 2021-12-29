@@ -8,12 +8,17 @@
 import UIKit
 import CoreData
 
-class DetailVC: UIViewController {
+protocol DetailDelegate: AnyObject {
+    func updateDetail()
+}
+
+class DetailVC: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     @IBOutlet weak var posterImg: UIImageView!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    weak var delegate: DetailDelegate?
     var posterCenter = CGPoint()
     
     var detail: DetailModel? {
@@ -84,6 +89,50 @@ class DetailVC: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    func mediaActionSheet() {
+        let alert = UIAlertController(title: "str_warning".localized(), message: "str_choose_media_msg".localized(), preferredStyle: .actionSheet)
+        
+        let cameraAction = UIAlertAction(title: "str_camera".localized(), style: .default, handler: { _ in
+            self.openCamera()
+        })
+        let galeryAction = UIAlertAction(title: "str_gallery".localized(), style: .default, handler: { _ in
+            self.openGallery()
+        })
+        let cancelAction = UIAlertAction(title: "str_cancel".localized(), style: .cancel)
+        
+        alert.addAction(cameraAction)
+        alert.addAction(galeryAction)
+        alert.addAction(cancelAction)
+        
+        alert.popoverPresentationController?.permittedArrowDirections = []
+        alert.popoverPresentationController?.sourceView = self.view
+        alert.popoverPresentationController?.sourceRect = CGRect(x: self.view.frame.midX, y: self.view.frame.midY, width: 0, height: 0)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func openGallery() {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = .photoLibrary
+        picker.allowsEditing = true
+        present(picker, animated: true, completion: nil)
+    }
+    
+    func openCamera() {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let picker = UIImagePickerController()
+            picker.delegate = self
+            picker.sourceType = .camera
+            picker.allowsEditing = true
+            present(picker, animated: true, completion: nil)
+        } else {
+            let alert = UIAlertController(title: "str_warning".localized(), message: "str_no_camera_msg".localized(), preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "str_go".localized(), style: .default))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
     @objc func handleDownSwipe(_ gesture: UISwipeGestureRecognizer) {
         UIView.animate(withDuration: 1.0, animations: {
             self.posterImg?.center = self.view.center
@@ -99,10 +148,14 @@ class DetailVC: UIViewController {
     }
     
     @IBAction func onActionBtn(_ sender: Any) {
-        addActionSheet(title: detail?.Title ?? "", completion: { _ in
-            let dict: [String: Any] = ["movie": self.detail as Any]
-            NotificationCenter.default.post(name: Notifications.movieAdded, object: nil, userInfo: dict)
-        })
+        if delegate is ExploreCVC {
+            addActionSheet(title: detail?.Title ?? "", completion: { _ in
+                let dict: [String: Any] = ["movie": self.detail as Any]
+                NotificationCenter.default.post(name: Notifications.movieAdded, object: nil, userInfo: dict)
+            })
+        } else if delegate is BookmarksTVC {
+            mediaActionSheet()
+        }
     }
     
     /*
@@ -114,5 +167,24 @@ class DetailVC: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    // MARK: - UIImagePickerControllerDelegate
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[.editedImage] as? UIImage  {
+            posterImg?.image = image
+            if let data = image.pngData() {
+                let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+                let filename = paths[0].appendingPathComponent("\(self.detail?.imdbID ?? "").png")
+                try? data.write(to: filename, options: .atomic)
+                delegate?.updateDetail()
+            }
+        }
+        dismiss(animated: true, completion: nil)
+    }
 
 }

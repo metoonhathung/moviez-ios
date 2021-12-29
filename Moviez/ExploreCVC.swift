@@ -9,7 +9,7 @@ import UIKit
 
 private let reuseIdentifier = "PosterCVCell"
 
-class ExploreCVC: UICollectionViewController, UIGestureRecognizerDelegate, SearchDelegate {
+class ExploreCVC: UICollectionViewController, UIGestureRecognizerDelegate, SearchDelegate, DetailDelegate {
     
     var cvVertical = true
     var cvPadding: CGFloat = 8
@@ -80,13 +80,15 @@ class ExploreCVC: UICollectionViewController, UIGestureRecognizerDelegate, Searc
         navigationItem.title = "str_explore".localized()
     }
     
-    func updateSearch(title: String, type: String, year: String) {
+    func updateSearch(title: String, type: String, year: String, isSearching: Bool) {
         self.searchTitle = title
         self.type = type
         self.year = year
         self.page = 1
         updateImages()
     }
+    
+    func updateDetail() {}
     
     func updateImages() {
         
@@ -198,6 +200,7 @@ class ExploreCVC: UICollectionViewController, UIGestureRecognizerDelegate, Searc
             case "CollectionDetailSegue":
                 if let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first,
                    let detailVC = segue.destination as? DetailVC {
+                    detailVC.delegate = self
                     let item = items[selectedIndexPath.row]
                     
                     imageHelper.fetchImage(urlString: item.Poster) { result in

@@ -9,10 +9,12 @@ import Foundation
 
 enum TypeEnum: Int, CaseIterable {
     
-    case movie, series
+    case all, movie, series
     
     func title() -> String {
         switch self {
+            case .all:
+                return ""
             case .movie:
                 return "movie"
             case .series:
@@ -22,9 +24,10 @@ enum TypeEnum: Int, CaseIterable {
     
     init(_ title: String) {
         switch title {
+            case "": self = .all
             case "movie": self = .movie
             case "series": self = .series
-            default: self = .movie
+            default: self = .all
         }
     }
 }

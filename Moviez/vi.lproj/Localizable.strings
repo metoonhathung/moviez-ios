@@ -9,6 +9,7 @@
 "str_explore" = "Khám phá";
 "str_bookmarks" = "Dấu trang";
 "str_webview" = "Trình duyệt";
+"str_mapview" = "Bản đồ";
 "str_settings" = "Cài đặt";
 
 "str_title" = "Tiêu đề";
@@ -28,13 +29,19 @@
 "str_votes" = "Số phiếu";
 "str_type" = "Phân loại";
 
-"str_go" = "Truy cập";
+"str_go" = "Đi";
 "str_cancel" = "Huỷ";
 "str_add" = "Thêm";
 "str_delete" = "Xoá";
+"str_camera" = "Máy ảnh";
+"str_gallery" = "Thư viện";
 "str_warning" = "Cảnh báo";
 "str_add_msg" = "Bạn có chắc muốn thêm";
 "str_delete_msg" = "Bạn có chắc muốn xoá";
+"str_choose_media_msg" = "Chọn phương tiện";
+"str_no_camera_msg" = "Không có máy ảnh";
+"str_no_location_msg" = "Không có vị trí";
+"str_here_msg" = "Bạn ở đây!";
 
 "str_darkmode" = "Ban đêm";
 "str_direction" = "Hướng";
@@ -50,7 +57,6 @@
 
 "movie" = "Phim lẻ";
 "series" = "Phim bộ";
-"all" = "Tất cả";
 
 "str_app_name" = "Tên ứng dụng";
 "str_app_version" = "Phiên bản";

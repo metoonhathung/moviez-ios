@@ -8,11 +8,12 @@
 import UIKit
 import CoreData
 
-class BookmarksTVC: UITableViewController {
+class BookmarksTVC: UITableViewController, SearchDelegate, DetailDelegate {
 
     var movies: [NSManagedObject] = []
     let imageHelper = ImageHelper()
     let detailHelper = DetailHelper()
+    var editedIndexPath: IndexPath?
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +51,41 @@ class BookmarksTVC: UITableViewController {
         alert.popoverPresentationController?.sourceRect = CGRect(x: self.view.frame.midX, y: self.view.frame.midY, width: 0, height: 0)
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    func updateSearch(title: String, type: String, year: String, isSearching: Bool) {
+        if isSearching == true {
+            var predicates = [NSPredicate]()
+            predicates.append(NSPredicate(format: "type = %@", type))
+            if !title.isEmpty {
+                predicates.append(NSPredicate(format: "title CONTAINS[cd] %@", title))
+            }
+            if !year.isEmpty {
+                predicates.append(NSPredicate(format: "year CONTAINS[cd] %@", year))
+            }
+            let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+            readData(predicate: predicate)
+        } else {
+            let context = AppDelegate.cdContext
+            if let oldType = TypeEnum(rawValue: editedIndexPath!.section) {
+                let moviesFiltered = moviesByType(type: oldType)
+                if let movie = moviesFiltered[editedIndexPath!.row] as? Movie {
+                    movie.setValue(title, forKey: "title")
+                    movie.setValue(type, forKey: "type")
+                    movie.setValue(year, forKey: "year")
+                    do {
+                        try context.save()
+                    } catch let error as NSError {
+                        print("Could not update the item. \(error), \(error.userInfo)")
+                    }
+                }
+            }
+            readData()
+        }
+    }
+    
+    func updateDetail() {
+        tableView.reloadData()
     }
 
     // MARK: - Table view data source
@@ -92,17 +128,35 @@ class BookmarksTVC: UITableViewController {
     }
     */
 
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") {
+            (action, sourceView, completionHandler) in
             if let type = TypeEnum(rawValue: indexPath.section) {
-                let moviesFiltered = moviesByType(type: type)
+                let moviesFiltered = self.moviesByType(type: type)
                 if let item = moviesFiltered[indexPath.row] as? Movie, let title = item.title {
-                    deletionAlert(title: title, completion: { _ in
+                    self.deletionAlert(title: title, completion: { _ in
                         self.deleteItem(item: item)
                     })
                 }
             }
+            completionHandler(true)
         }
+        
+        let editAction = UIContextualAction(style: .normal, title: "Edit") {
+            (action, sourceView, completionHandler) in
+            self.editedIndexPath = indexPath
+            self.performSegue(withIdentifier: "EditSegue", sender: indexPath)
+            completionHandler(true)
+        }
+        editAction.backgroundColor = .green
+        
+        // SWIPE TO LEFT CONFIGURATION
+        let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+        // Delete should not delete automatically
+         swipeConfiguration.performsFirstActionWithFullSwipe = false
+        
+        return swipeConfiguration
     }
 
     /*
@@ -122,9 +176,12 @@ class BookmarksTVC: UITableViewController {
     
     // MARK: - CoreData
     
-    func readData() {
+    func readData(predicate: NSPredicate? = nil) {
         let context = AppDelegate.cdContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Movie")
+        if let _predicate = predicate {
+            fetchRequest.predicate = _predicate
+        }
         do {
             movies = try context.fetch(fetchRequest)
         } catch let error as NSError {
@@ -184,6 +241,7 @@ class BookmarksTVC: UITableViewController {
                 if let selectedIndexPath = tableView.indexPathForSelectedRow,
                    let detailVC = segue.destination as? DetailVC,
                    let type = TypeEnum(rawValue: selectedIndexPath.section) {
+                    detailVC.delegate = self
                     let moviesFiltered = moviesByType(type: type)
                     if let movie = moviesFiltered[selectedIndexPath.row] as? Movie {
                         imageHelper.fetchImage(urlString: movie.value(forKey: "poster") as! String) { result in
@@ -204,6 +262,19 @@ class BookmarksTVC: UITableViewController {
                                     print("fetch error; \(error)")
                             }
                         }
+                    }
+                }
+            case "PredicateSegue":
+                if let searchVC = segue.destination as? SearchVC {
+                    searchVC.delegate = self
+                }
+            case "EditSegue":
+                if let searchVC = segue.destination as? SearchVC,
+                   let type = TypeEnum(rawValue: editedIndexPath!.section) {
+                    searchVC.delegate = self
+                    let moviesFiltered = moviesByType(type: type)
+                    if let movie = moviesFiltered[editedIndexPath!.row] as? Movie {
+                        searchVC.movie = movie
                     }
                 }
             default: break

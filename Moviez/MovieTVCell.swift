@@ -30,7 +30,7 @@ class MovieTVCell: UITableViewCell {
     
     func update(with movie: Movie) {
          
-        if let _ = movie.value(forKey: "id") as? String,
+        if let id = movie.value(forKey: "id") as? String,
             let title = movie.value(forKey: "title") as? String,
             let year = movie.value(forKey: "year") as? String,
             let _ = movie.value(forKey: "type") as? String,
@@ -45,18 +45,27 @@ class MovieTVCell: UITableViewCell {
                 
             }
             
-            imageHelper.fetchImage(urlString: poster, completion: { result in
-                
-                guard case let .Success(imgData) = result else { return }
-                
-                OperationQueue.main.addOperation {
-                    if let image = UIImage(data: imgData) {
-                        self.activityIndicator?.stopAnimating()
-                        self.posterImg.image = image
-                        self.flipFromTop()
+            let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+            let filename = paths[0].appendingPathComponent("\(id).png")
+            if let imgData = NSData(contentsOf: filename),
+               let image = UIImage(data: imgData as Data) {
+                self.activityIndicator?.stopAnimating()
+                self.posterImg.image = image
+                self.flipFromTop()
+            } else {
+                imageHelper.fetchImage(urlString: poster, completion: { result in
+                    
+                    guard case let .Success(imgData) = result else { return }
+                    
+                    OperationQueue.main.addOperation {
+                        if let image = UIImage(data: imgData) {
+                            self.activityIndicator?.stopAnimating()
+                            self.posterImg.image = image
+                            self.flipFromTop()
+                        }
                     }
-                }
-            })
+                })
+            }
         }
     }
     

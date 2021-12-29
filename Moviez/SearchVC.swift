@@ -8,7 +8,7 @@
 import UIKit
 
 protocol SearchDelegate: AnyObject {
-    func updateSearch(title: String, type: String, year: String)
+    func updateSearch(title: String, type: String, year: String, isSearching: Bool)
 }
 
 class SearchVC: UIViewController {
@@ -18,6 +18,7 @@ class SearchVC: UIViewController {
     @IBOutlet weak var yearField: UITextField!
     
     weak var delegate: SearchDelegate?
+    var movie: Movie?
     
     @IBOutlet weak var constTitleLabel: UILabel!
     @IBOutlet weak var constTypeLabel: UILabel!
@@ -32,7 +33,13 @@ class SearchVC: UIViewController {
         NotificationCenter.default.addObserver(forName: Notifications.languageChanged, object: nil, queue: nil) { _ in
             self.localized()
         }
-        
+        if let title = movie?.value(forKey: "title") as? String,
+           let type = movie?.value(forKey: "type") as? String,
+            let year = movie?.value(forKey: "year") as? String {
+            titleField?.text = title
+            yearField?.text = year
+            typePicker.selectRow(TypeEnum(type).rawValue, inComponent: 0, animated: true)
+        }
         // Do any additional setup after loading the view.
     }
     
@@ -67,7 +74,8 @@ class SearchVC: UIViewController {
     @IBAction func onGoBtn(_ sender: Any) {
         if let searchTitle = titleField?.text, let year = yearField?.text {
             let type = TypeEnum(rawValue: typePicker.selectedRow(inComponent: 0))?.title() ?? ""
-            delegate?.updateSearch(title: searchTitle, type: type, year: year)
+            let isSearching = movie == nil ? true : false
+            delegate?.updateSearch(title: searchTitle, type: type, year: year, isSearching: isSearching)
         }
         presentingViewController?.dismiss(animated: true)
     }
@@ -80,10 +88,10 @@ extension SearchVC: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return TypeEnum.allCases.count + 1
+        return TypeEnum.allCases.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return TypeEnum(rawValue: row)?.title().localized() ?? "all".localized()
+        return TypeEnum(rawValue: row)?.title().localized()
     }
 }
