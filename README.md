@@ -1,6 +1,6 @@
 # Moviez
 
-[Demo](https://youtu.be/_l5x9HBTLG8)
+[Demo](https://youtu.be/XSoK2bLKMgg)
 
 Description: An iOS application to explore and bookmark your favorite movies.
 
